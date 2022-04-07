@@ -8,23 +8,21 @@ from qcmath290.public."2018_yellow_taxi_trip_data" yttd
 
 
 -- #2
-select count(*) as distinct_observation_count from (select distinct vendorID, tpep_pickup_datetime, tpep_dropoff_datetime,
-passenger_count, trip_distance, ratecodeid, store_and_fwd_flag, pulocationid,
-dolocationid, payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge,
-total_amount
-from qcmath290.public."2018_yellow_taxi_trip_data" yttd) as sub_query;
+select count(*) as distinct_observation_count 
+from (select distinct *
+      from qcmath290.public."2018_yellow_taxi_trip_data" yttd) as sub_query;
 
 -- #3
 select count(*)
 from qcmath290.public."2018_yellow_taxi_trip_data" yttd 
 where passenger_count = 5
 
+-- Gives us all UNIQUE trips (the ENTIRE row has to be unique)
 select count(*) from 
-(select distinct vendorID, tpep_pickup_datetime, tpep_dropoff_datetime,
-passenger_count, trip_distance, ratecodeid, store_and_fwd_flag, pulocationid,
-dolocationid, payment_type, fare_amount, extra, mta_tax, tip_amount, tolls_amount, improvement_surcharge,
-total_amount from qcmath290.public."2018_yellow_taxi_trip_data" yttd) as sub_query
+(select distinct * 
+  from qcmath290.public."2018_yellow_taxi_trip_data" yttd) as sub_query
 where passenger_count > 3
+
 
 select count(*)
 from qcmath290.public."2018_yellow_taxi_trip_data" yttd 
